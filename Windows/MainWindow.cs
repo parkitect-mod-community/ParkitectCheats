@@ -5,7 +5,7 @@ namespace CheatMod.Windows
 {
     class MainWindow : CMWindow
     {
-        public MainWindow(int windowId) : base(windowId){
+        public MainWindow(CheatModController cheatController) : base(cheatController){
             windowName = "Cheat Mod";
             WindowRect = new Rect(20, 20, 700, 200);
         }
@@ -96,11 +96,11 @@ namespace CheatMod.Windows
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Open advanced window")) {
-                CheatModController.getWindow(WindowIds.AdvancedWindow).OpenWindow();
+                _controller.GetWindow<AdvancedWindow> ().OpenWindow();
             }
             if(GUILayout.Button("Open weather and time options"))
             {
-                CheatModController.getWindow(WindowIds.WeatherWindow).OpenWindow();
+                _controller.GetWindow<WeatherWindow> ().OpenWindow();
             }
             GUILayout.EndHorizontal();
             

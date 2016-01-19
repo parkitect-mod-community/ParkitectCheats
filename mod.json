@@ -1,7 +1,1 @@
-{
-    "BaseDir": "",
-    "EntryPoint": "CheatMod.Main",
-    "IsDevelopment": true,
-    "Name": "Cheat Mod",
-    "Project": "CheatMod.csproj"
-}
+{"BaseDir":"","CompilerVersion":"v3.5","CodeFiles":[],"IsDevelopment":true,"IsEnabled":true,"Name":"Cheat Mod","Project":"CheatMod.csproj","Tag":null,"ReferencedAssemblies":[],"Repository":null}

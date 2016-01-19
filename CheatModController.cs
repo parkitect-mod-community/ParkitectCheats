@@ -3,25 +3,26 @@ using UnityEngine;
 using CheatMod.Windows;
 using CheatMod.Reference;
 using System.Collections;
-
+using System.Linq;
 namespace CheatMod
 {
     class CheatModController : MonoBehaviour
     {
-        public static List<CMWindow> windows = new List<CMWindow>();
-        private static LightMoodController _lightMoodController;
-        private static float LightIntensityValue = 1.2F;
+        //private LightMoodController _lightMoodController;
+        //private float LightIntensityValue = 1.2F;
 
-        void Start()
+        public List<CMWindow> windows = new List<CMWindow>();
+
+        public void Load()
         {
             Debug.Log("Started CheatModController");
-            _lightMoodController = FindObjectOfType<LightMoodController>();
-
-            windows.Add(new MainWindow(WindowIds.MainWindow));
-            windows.Add(new AdvancedWindow(WindowIds.AdvancedWindow));
-            windows.Add(new ConfirmWindow(WindowIds.ConfirmWindow));
-            windows.Add(new MessageWindow(WindowIds.MessageWindow));
-            windows.Add(new WeatherWindow(WindowIds.WeatherWindow));
+           // _lightMoodController = FindObjectOfType<LightMoodController>();
+             
+            windows.Add (new MainWindow (this));
+            windows.Add (new AdvancedWindow (this));
+            windows.Add (new ConfirmWindow (this));
+            windows.Add (new MessageWindow (this));
+            windows.Add (new WeatherWindow (this));
         }
 
         void OnDestroy()
@@ -30,12 +31,12 @@ namespace CheatMod
         }
 
         void Update() {
-            _lightMoodController.keyLight.intensity = LightIntensityValue;
+           // _lightMoodController.keyLight.intensity = LightIntensityValue;
             if (Input.GetKeyDown(KeyCode.T) || (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.T))) {
                 Debug.Log("Toggled Cheatmod window");
-                CMWindow window = getWindow(WindowIds.MainWindow);
-                Debug.Log(window);
-                window.ToggleWindowState();
+                CMWindow mainWindow = windows.Single (x => x is MainWindow);
+                Debug.Log(mainWindow);
+                mainWindow.ToggleWindowState();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -43,6 +44,11 @@ namespace CheatMod
                     window.CloseWindow();
                 });
             }
+        }
+
+        public T GetWindow<T>() where T : CMWindow
+        {
+            return (T) windows.Single (x => x is T);
         }
 
         void OnGUI()
@@ -54,22 +60,19 @@ namespace CheatMod
             });
         }
 
-        public static CMWindow getWindow(int id) {
-            return windows.Find(x => x.id == id);
+
+        public void setLightIntensity(float intensity)
+        {
+          //  LightIntensityValue = intensity;
         }
 
-        public static void setLightIntensity(float intensity)
+        /*private IEnumerator UpdateTime()
         {
-            LightIntensityValue = intensity;
-        }
-
-        private IEnumerator UpdateTime()
-        {
-            for (;;) { 
+            /*for (;;) { 
                 _lightMoodController.keyLight.intensity = LightIntensityValue;
 
                 yield return new UnityEngine.WaitForSeconds(0.5F);
-            }
-        }
+            }*/
+        //}
     }
 }

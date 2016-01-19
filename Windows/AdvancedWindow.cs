@@ -16,7 +16,8 @@ namespace CheatMod.Windows
         private string setGuests = "";
         private int parsedSetGuests = 0;
 
-        public AdvancedWindow(int windowId) : base(windowId) {
+        public AdvancedWindow(CheatModController cheatController) : base(cheatController) {
+            
             windowName = "Advanced Cheat Mod";
             WindowRect = new Rect(620, 20, 400, 200);
         }
@@ -36,7 +37,8 @@ namespace CheatMod.Windows
                 }
                 else
                 {
-                    MessageWindow mw = (MessageWindow)CheatModController.getWindow(WindowIds.MessageWindow);
+                    
+                    MessageWindow mw = _controller.GetWindow<MessageWindow>();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
@@ -54,7 +56,7 @@ namespace CheatMod.Windows
                     parsedGuests = value;
                     if (value > 200)
                     {
-                        ConfirmWindow w = (ConfirmWindow)CheatModController.getWindow(WindowIds.ConfirmWindow);
+                        ConfirmWindow w = _controller.GetWindow<ConfirmWindow> ();
                         w.setCode(confirmGuests);
                         w.message = "Spawning more than 200 guests can decrease performance!";
                         w.OpenWindow();
@@ -66,7 +68,7 @@ namespace CheatMod.Windows
                 }
                 else
                 {
-                    MessageWindow mw = (MessageWindow)CheatModController.getWindow(WindowIds.MessageWindow);
+                    MessageWindow mw = _controller.GetWindow<MessageWindow> ();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
@@ -83,7 +85,7 @@ namespace CheatMod.Windows
                     parsedSpeed = value;
                     if(value > 15)
                     {
-                        ConfirmWindow w = (ConfirmWindow)CheatModController.getWindow(WindowIds.ConfirmWindow);
+                        ConfirmWindow w = _controller.GetWindow<ConfirmWindow> ();
                         w.setCode(confirmSpeed);
                         w.message = "Setting the time too high can decrease performance!";
                         w.OpenWindow();
@@ -95,7 +97,7 @@ namespace CheatMod.Windows
                 }
                 else
                 {
-                    MessageWindow mw = (MessageWindow)CheatModController.getWindow(WindowIds.MessageWindow);
+                    MessageWindow mw = _controller.GetWindow<MessageWindow> ();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
@@ -113,7 +115,7 @@ namespace CheatMod.Windows
                 }
                 else
                 {
-                    MessageWindow mw = (MessageWindow)CheatModController.getWindow(WindowIds.MessageWindow);
+                    MessageWindow mw = _controller.GetWindow<MessageWindow> ();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
@@ -132,7 +134,7 @@ namespace CheatMod.Windows
                 }
                 else
                 {
-                    MessageWindow mw = (MessageWindow)CheatModController.getWindow(WindowIds.MessageWindow);
+                    MessageWindow mw =_controller.GetWindow<MessageWindow> ();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
@@ -151,7 +153,7 @@ namespace CheatMod.Windows
                     parsedSetGuests = value - guestAmount;
                     if (value > 200)
                     {
-                        ConfirmWindow w = (ConfirmWindow)CheatModController.getWindow(WindowIds.ConfirmWindow);
+                        ConfirmWindow w = _controller.GetWindow<ConfirmWindow> ();
                         w.setCode(confirmSetGuests);
                         w.message = "Spawning more than 200 guests can decrease performance!";
                         w.OpenWindow();
@@ -162,7 +164,7 @@ namespace CheatMod.Windows
                     }
                 }
                 else {
-                    MessageWindow mw = (MessageWindow)CheatModController.getWindow(WindowIds.MessageWindow);
+                    MessageWindow mw =_controller.GetWindow<MessageWindow> ();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }

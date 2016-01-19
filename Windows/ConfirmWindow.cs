@@ -8,7 +8,7 @@ namespace CheatMod.Windows
         private Func<bool, bool> fn;
         public string message = "Please confirm";
 
-        public ConfirmWindow(int windowId) : base(windowId) {
+        public ConfirmWindow(CheatModController cheatController) : base(cheatController) {
             windowName = "Are you sure?";
             drawCloseButton = false;
             WindowRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 100);

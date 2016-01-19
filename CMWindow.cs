@@ -1,21 +1,25 @@
 ﻿using UnityEngine;
+using System;
 
 namespace CheatMod
 {
     class CMWindow
     {
         
-        public int id;
         public string windowName = "CMWindow";
         public bool isOpen = false;
         protected bool usesSkin = true;
         protected bool drawCloseButton = true;
         public Rect WindowRect = new Rect(20, 20, 200, 200);
         public Rect TitleBarRect = new Rect(0, 0, 200000000, 20);
+        protected CheatModController _controller;
 
-        public CMWindow(int windowId)
-        {
-            id = windowId;       
+        private int _id;
+
+        public CMWindow(CheatModController controller)
+        {       
+            _id = UnityEngine.Random.Range (0, 1000);
+            _controller = controller;
         }
 
         public void ToggleWindowState()
@@ -35,7 +39,7 @@ namespace CheatMod
 
         public void DrawWindow()
         {
-            WindowRect = GUILayout.Window(id, WindowRect, DrawMain, windowName);
+            WindowRect = GUILayout.Window(_id , WindowRect, DrawMain, windowName);
         }
 
         public void DrawMain(int windowId)

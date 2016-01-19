@@ -30,7 +30,8 @@ namespace CheatMod
         public void onEnabled()
         {
             _go = new GameObject();
-            _go.AddComponent<CheatModController>();
+            var cheatModController = _go.AddComponent<CheatModController>();
+          //  cheatModController.Load ();
         }
 
         public string Identifier { get; set; }
