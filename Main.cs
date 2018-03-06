@@ -1,20 +1,20 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.IO;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CheatMod
 {
     public class Main : IMod , IModSettings 
     {
         public GameObject _go;
-        public static  StreamWriter sw;
         public string Identifier { get; set; }
         public static Configuration configuration{ get; private set; }
 
         public void onEnabled()
         {
             if (configuration == null) {
-                configuration = new Configuration (Path);
+                configuration = new Configuration ();
                 configuration.Load ();
                 configuration.Save ();
             }
@@ -24,12 +24,9 @@ namespace CheatMod
 				//Global.is
                 ScriptableSingleton<DebugPreferences>.Instance.drawDebugUI = true;
                 //new GameObject ("Mod tools").AddComponent<DebugToolsMenu> ();
-            } else {
-                //Global.IS_RELEASE_BUILD = true;
             }
 
-            sw = File.AppendText (this.Path + @"/mod.log");
-                
+             
             _go = new GameObject();
             var modController = _go.AddComponent<CheatModController>();
             modController.Load ();
@@ -38,59 +35,22 @@ namespace CheatMod
 
         public void onDisabled()
         {
-            UnityEngine.Object.Destroy(_go);
-            sw.Close();
+            Object.Destroy(_go);
         }
 
 
-        public static void Log(Exception e)
-        {
- 
-            sw.WriteLine(e);
-            sw.Flush();
+        public string Name => "Cheat Mod";
 
-        }
+        public string Description => "Cheats for Parkitect.";
 
-        public static void Log(string value)
-        {
-
-            sw.WriteLine(value);
-            sw.Flush();
-
-        }
-
-        public static void Log(int value)
-        {
-
-            sw.WriteLine(value);
-            sw.Flush();
-
-        }
-
-        public string Name
-        {
-            get
-            {
-                return "Cheat Mod";
-            }
-        }
-
-        public string Description
-        {
-            get
-            {
-                return "Cheats for Parkitect.";
-            }
-        }
-            
-        public string Path { get; set; }
+        string IMod.Identifier => "CheatsMod";
 
 
         #region Implementation of IModSettings
 
         private bool FetchKey(out KeyCode outKey)
         {
-            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode))) {
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode))) {
                 if (Input.GetKeyDown (key)) {
                     outKey = key;
                     return true;
@@ -102,17 +62,17 @@ namespace CheatMod
 
 
         public void onDrawSettingsUI() {
-            Main.configuration.DrawGUI ();
+            configuration.DrawGUI ();
         }
 
         public void onSettingsOpened() {
-            if (Main.configuration == null)
-                Main.configuration = new Configuration (this.Path);
-            Main.configuration.Load ();
+            if (configuration == null)
+                configuration = new Configuration ();
+            configuration.Load ();
 
         }
         public void onSettingsClosed() {
-            Main.configuration.Save ();
+            configuration.Save ();
         }
 
         #endregion

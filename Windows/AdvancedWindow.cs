@@ -206,11 +206,11 @@ namespace CheatMod.Windows
 
             if (yn)
             {
-                Main.Log("confirmSetGuests");
-                Main.Log(parsedSetGuests);
+                Debug.Log("confirmSetGuests");
+                Debug.Log(parsedSetGuests);
                 if (parsedSetGuests > 0)
                 {
-                    Main.Log("adding guests");
+                    Debug.Log("adding guests");
                     for (int i = 0; i < parsedSetGuests; i++)
                     {
                         
@@ -219,7 +219,7 @@ namespace CheatMod.Windows
                     }
                 }
                 else {
-                    Main.Log("Removing guests");
+                    Debug.Log("Removing guests");
                     ReadOnlyCollection<Guest> guestListReadOnly = GameController.Instance.park.getGuests();
                     Guest[] guestList = new Guest[guestListReadOnly.Count];
                     guestListReadOnly.CopyTo(guestList, 0);

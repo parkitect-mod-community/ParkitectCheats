@@ -1,26 +1,25 @@
 ﻿using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.IO;
 using MiniJSON;
+using UnityEngine;
 
 namespace CheatMod
 {
     public class Configuration
     {
-        private static GUIStyle ToggleButtonStyleNormal = null;
-        private static GUIStyle ToggleButtonStyleToggled = null;
+        private static GUIStyle ToggleButtonStyleNormal;
+        private static GUIStyle ToggleButtonStyleToggled;
 
         public ModSettings settings { get; private set; }
-        private string path;
+        private readonly string _path;
 
-        public int keySelectionId = -1;
+        private int keySelectionId = -1;
 
 
-        public Configuration(string path)
+        public Configuration()
         {
-            this.path =  path + System.IO.Path.DirectorySeparatorChar + "Config.json"; 
+            _path =  FilePaths.getFolderPath("cheats_mod.config");; 
             settings = new ModSettings ();
 
         }
@@ -29,7 +28,7 @@ namespace CheatMod
         {
             SerializationContext context = new SerializationContext(SerializationContext.Context.Savegame);
 
-            using (var stream = new FileStream(this.path, FileMode.Create))
+            using (var stream = new FileStream(_path, FileMode.Create))
             {
                 using (var writer = new StreamWriter(stream))
                 {
@@ -41,8 +40,8 @@ namespace CheatMod
         public void Load()
         {
             try {
-                if (File.Exists(this.path)) {
-                    using (StreamReader reader = new StreamReader(this.path)) {
+                if (File.Exists(_path)) {
+                    using (StreamReader reader = new StreamReader(_path)) {
                         string jsonString;
 
                         SerializationContext context = new SerializationContext(SerializationContext.Context.Savegame);
@@ -56,9 +55,9 @@ namespace CheatMod
                 }
 
             }
-            catch (System.Exception e) {
+            catch (Exception e) {
 
-                UnityEngine.Debug.Log("Couldn't properly load settings file! " + e.ToString());
+                Debug.Log("Couldn't properly load settings file! " + e);
             }
         }
 
@@ -106,7 +105,7 @@ namespace CheatMod
 
         private bool FetchKey(out KeyCode outKey)
         {
-            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode))) {
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode))) {
                 if (Input.GetKeyDown (key)) {
                     outKey = key;
                     return true;
