@@ -89,11 +89,11 @@ namespace CheatMod.Windows
             }
             GUILayout.Label("Current Rating: " + GameController.Instance.park.parkInfo.RatingPriceSatisfaction);
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Recalculate current ratings")) {
-                GameController.Instance.park.parkInfo.triggerRecalculateCurrentRatings();
-            }
-            GUILayout.EndHorizontal();
+//            GUILayout.BeginHorizontal();
+//            if (GUILayout.Button("Recalculate current ratings")) {
+//                GameController.Instance.park.parkInfo.triggerRecalculateCurrentRatings();
+//            }
+//            GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Open advanced window")) {
                 _controller.GetWindow<AdvancedWindow> ().OpenWindow();
