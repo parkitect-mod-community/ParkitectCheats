@@ -1,22 +1,37 @@
-﻿using System.Collections.ObjectModel;
+﻿/**
+* Copyright 2019 Michael Pollind
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 using UnityEngine;
 
-namespace CheatMod.Windows
+namespace CheatsMod.Windows
 {
-    public class AdvancedWindow : CMWindow
+    public class AdvancedWindow : CmWindow
     {
-        private string money = "";
-        private string guests = "";
-        private int parsedGuests = 0;
-        private string speed = "";
-        private int parsedSpeed = 1;
         private string cleanliness = "";
+        private string guests = "";
+        private string money = "";
+        private int parsedGuests;
+        private int parsedSetGuests;
+        private int parsedSpeed = 1;
         private string priceSatisfaction = "";
         private string setGuests = "";
-        private int parsedSetGuests = 0;
+        private string speed = "";
 
-        public AdvancedWindow(CheatModController cheatController) : base(cheatController) {
-            
+        public AdvancedWindow(CheatModController cheatController) : base(cheatController)
+        {
             windowName = "Advanced Cheat Mod";
             WindowRect = new Rect(620, 20, 400, 200);
         }
@@ -29,19 +44,19 @@ namespace CheatMod.Windows
             if (GUILayout.Button("Confirm"))
             {
                 int value;
-                bool parsed = int.TryParse(money, out value);
+                var parsed = int.TryParse(money, out value);
                 if (parsed)
                 {
-                    GameController.Instance.park.parkInfo.setMoney (value);
+                    GameController.Instance.park.parkInfo.setMoney(value);
                 }
                 else
                 {
-                    
-                    MessageWindow mw = _controller.GetWindow<MessageWindow>();
+                    var mw = Controller.GetWindow<MessageWindow>();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
             }
+
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             GUILayout.Label("Spawn guests:");
@@ -49,16 +64,14 @@ namespace CheatMod.Windows
             if (GUILayout.Button("Confirm"))
             {
                 int value;
-                bool parsed = int.TryParse(guests, out value);
+                var parsed = int.TryParse(guests, out value);
                 if (parsed)
                 {
                     parsedGuests = value;
                     if (value > 200)
                     {
-                        ConfirmWindow w = _controller.GetWindow<ConfirmWindow> ();
-                        w.Signal += (bool yn) => {
-							confirmGuests(yn);
-                        };
+                        var w = Controller.GetWindow<ConfirmWindow>();
+                        w.Signal += yn => { confirmGuests(yn); };
                         w.message = "Spawning more than 200 guests can decrease performance!";
                         w.OpenWindow();
                     }
@@ -69,27 +82,27 @@ namespace CheatMod.Windows
                 }
                 else
                 {
-                    MessageWindow mw = _controller.GetWindow<MessageWindow> ();
+                    var mw = Controller.GetWindow<MessageWindow>();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
             }
+
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             GUILayout.Label("Set speed:");
             speed = GUILayout.TextField(speed);
-            if (GUILayout.Button("Confirm")) {
+            if (GUILayout.Button("Confirm"))
+            {
                 int value;
-                bool parsed = int.TryParse(speed, out value);
+                var parsed = int.TryParse(speed, out value);
                 if (parsed)
                 {
                     parsedSpeed = value;
-                    if(value > 15)
+                    if (value > 15)
                     {
-                        ConfirmWindow w = _controller.GetWindow<ConfirmWindow> ();
-                        w.Signal += (yn) => {
-                            confirmSpeed (yn);
-                        };
+                        var w = Controller.GetWindow<ConfirmWindow>();
+                        w.Signal += yn => { confirmSpeed(yn); };
                         w.message = "Setting the time too high can decrease performance!";
                         w.OpenWindow();
                     }
@@ -100,29 +113,32 @@ namespace CheatMod.Windows
                 }
                 else
                 {
-                    MessageWindow mw = _controller.GetWindow<MessageWindow> ();
+                    var mw = Controller.GetWindow<MessageWindow>();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
             }
+
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             GUILayout.Label("Rate cleanliness:");
             cleanliness = GUILayout.TextField(cleanliness);
-            if (GUILayout.Button("Confirm")) {
+            if (GUILayout.Button("Confirm"))
+            {
                 int value;
-                bool parsed = int.TryParse(cleanliness, out value);
+                var parsed = int.TryParse(cleanliness, out value);
                 if (parsed)
                 {
                     GameController.Instance.park.parkInfo.rateCleanliness(value);
                 }
                 else
                 {
-                    MessageWindow mw = _controller.GetWindow<MessageWindow> ();
+                    var mw = Controller.GetWindow<MessageWindow>();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
             }
+
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             GUILayout.Label("Rate price satisfaction:");
@@ -130,18 +146,19 @@ namespace CheatMod.Windows
             if (GUILayout.Button("Confirm"))
             {
                 int value;
-                bool parsed = int.TryParse(priceSatisfaction, out value);
+                var parsed = int.TryParse(priceSatisfaction, out value);
                 if (parsed)
                 {
                     GameController.Instance.park.parkInfo.ratePriceSatisfaction(value);
                 }
                 else
                 {
-                    MessageWindow mw =_controller.GetWindow<MessageWindow> ();
+                    var mw = Controller.GetWindow<MessageWindow>();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
             }
+
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             GUILayout.Label("Set amount of guests:");
@@ -149,17 +166,15 @@ namespace CheatMod.Windows
             if (GUILayout.Button("Confirm"))
             {
                 int value;
-                bool parsed = int.TryParse(setGuests, out value);
+                var parsed = int.TryParse(setGuests, out value);
                 if (parsed)
                 {
-                    int guestAmount = GameController.Instance.park.getGuests().Count;
+                    var guestAmount = GameController.Instance.park.getGuests().Count;
                     parsedSetGuests = value - guestAmount;
                     if (value > 200)
                     {
-                        ConfirmWindow w = _controller.GetWindow<ConfirmWindow> ();
-                        w.Signal += (bool yn) => {
-                            confirmSetGuests(yn);
-                        };
+                        var w = Controller.GetWindow<ConfirmWindow>();
+                        w.Signal += yn => { confirmSetGuests(yn); };
                         w.message = "Spawning more than 200 guests can decrease performance!";
                         w.OpenWindow();
                     }
@@ -168,42 +183,40 @@ namespace CheatMod.Windows
                         confirmSetGuests(true);
                     }
                 }
-                else {
-                    MessageWindow mw =_controller.GetWindow<MessageWindow> ();
+                else
+                {
+                    var mw = Controller.GetWindow<MessageWindow>();
                     mw.message = "Please enter a valid integer";
                     mw.OpenWindow();
                 }
             }
+
             GUILayout.EndHorizontal();
         }
 
-        bool confirmGuests(bool yn)
+        private bool confirmGuests(bool yn)
         {
             if (yn)
-            {
-                for(int i = 0; i < parsedGuests; i++)
-                {
+                for (var i = 0; i < parsedGuests; i++)
                     GameController.Instance.park.spawnGuest();
-                }
-            }
 
             return true;
         }
 
-        bool confirmSpeed(bool yn)
+        private bool confirmSpeed(bool yn)
         {
             if (yn)
             {
-                float oldTimeScale = Time.timeScale;
+                var oldTimeScale = Time.timeScale;
                 Time.timeScale = parsedSpeed;
                 EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeScale, parsedSpeed);
             }
+
             return true;
         }
 
-        bool confirmSetGuests(bool yn)
+        private bool confirmSetGuests(bool yn)
         {
-
             if (yn)
             {
                 Debug.Log("confirmSetGuests");
@@ -211,24 +224,18 @@ namespace CheatMod.Windows
                 if (parsedSetGuests > 0)
                 {
                     Debug.Log("adding guests");
-                    for (int i = 0; i < parsedSetGuests; i++)
-                    {
-                        
-                        GameController.Instance.park.spawnGuest();
-                        
-                    }
+                    for (var i = 0; i < parsedSetGuests; i++) GameController.Instance.park.spawnGuest();
                 }
-                else {
+                else
+                {
                     Debug.Log("Removing guests");
-                    ReadOnlyCollection<Guest> guestListReadOnly = GameController.Instance.park.getGuests();
-                    Guest[] guestList = new Guest[guestListReadOnly.Count];
+                    var guestListReadOnly = GameController.Instance.park.getGuests();
+                    var guestList = new Guest[guestListReadOnly.Count];
                     guestListReadOnly.CopyTo(guestList, 0);
-                    for(int i = 0; i < parsedSetGuests * -1; i++)
-                    {
-                        guestList[i].Kill();
-                    }
+                    for (var i = 0; i < parsedSetGuests * -1; i++) guestList[i].Kill();
                 }
             }
+
             return true;
         }
     }

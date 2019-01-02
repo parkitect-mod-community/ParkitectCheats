@@ -1,16 +1,32 @@
-﻿using System.Collections;
+﻿/**
+* Copyright 2019 Michael Pollind
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+using System.Collections;
 using System.Collections.Generic;
-using CheatMod.Windows;
+using CheatsMod.Windows;
 using UnityEngine;
 
-namespace CheatMod
+namespace CheatsMod
 {
     public class CheatModController : MonoBehaviour
     {
         private LightMoodController _lightMoodController;
         private float LightIntensityValue = 1.2F;
 
-        public List<CMWindow> windows = new List<CMWindow>();
+        public List<CmWindow> windows = new List<CmWindow>();
 
         public void Load()
         {
@@ -26,14 +42,13 @@ namespace CheatMod
             windows.Add(new GlobalToggles(this));
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             setLightIntensity(1.2F);
         }
 
-        void Update()
+        private void Update()
         {
-
             if (_lightMoodController != null)
                 _lightMoodController.keyLight.intensity = LightIntensityValue;
 
@@ -42,53 +57,36 @@ namespace CheatMod
             {
                 Debug.Log("Toggled Cheatmod window");
 
-                CMWindow mainWindow = GetWindow<MainWindow>();
+                CmWindow mainWindow = GetWindow<MainWindow>();
                 Debug.Log(mainWindow.ToString());
                 mainWindow.ToggleWindowState();
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                foreach (CMWindow window in windows)
-                {
+                foreach (var window in windows)
                     if (window.isOpen)
-                    {
                         window.CloseWindow();
-                    }
-                }
-            }
         }
 
-        public T GetWindow<T>() where T : CMWindow
+        public T GetWindow<T>() where T : CmWindow
         {
-            foreach (CMWindow window in windows)
-            {
-
+            foreach (var window in windows)
                 if (window is T)
-                {
                     return (T) window;
-
-                }
-            }
 
             return null;
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
-            foreach (CMWindow window in windows)
-            {
+            foreach (var window in windows)
                 if (window.isOpen)
-                {
                     window.DrawWindow();
-                }
-            }
         }
 
 
         public void setLightIntensity(float intensity)
         {
-
             LightIntensityValue = intensity;
         }
 

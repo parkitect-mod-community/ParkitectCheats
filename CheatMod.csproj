@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="LICENSE" />
     <Content Include="steam_workshop-id">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

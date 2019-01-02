@@ -1,25 +1,40 @@
-﻿using UnityEngine;
-using System;
+﻿/**
+* Copyright 2019 Michael Pollind
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
-namespace CheatMod
+using UnityEngine;
+
+namespace CheatsMod
 {
-    public class CMWindow
+    public class CmWindow
     {
-        
-        public string windowName = "CMWindow";
-        public bool isOpen = false;
-        protected bool usesSkin = true;
+        protected readonly CheatModController Controller;
+
+        private readonly int _id;
         protected bool drawCloseButton = true;
-        public Rect WindowRect = new Rect(20, 20, 200, 200);
-        public Rect TitleBarRect = new Rect(0, 0, 200000000, 20);
-        protected CheatModController _controller;
+        public bool isOpen;
+        private readonly Rect TitleBarRect = new Rect(0, 0, 200000000, 20);
+        protected bool usesSkin = true;
 
-        private int _id;
+        protected string windowName = "CMWindow";
+        protected Rect WindowRect = new Rect(20, 20, 200, 200);
 
-        public CMWindow(CheatModController controller)
-        {       
+        public CmWindow(CheatModController controller)
+        {
             _id = WindowIdManager.GetWindowId();
-            _controller = controller;
+            Controller = controller;
         }
 
         public void ToggleWindowState()
@@ -39,28 +54,23 @@ namespace CheatMod
 
         public void DrawWindow()
         {
-            WindowRect = GUILayout.Window(_id , WindowRect, DrawMain, windowName);
+            WindowRect = GUILayout.Window(_id, WindowRect, DrawMain, windowName);
         }
 
         public void DrawMain(int windowId)
         {
             if (drawCloseButton)
-            {
                 if (GUI.Button(new Rect(WindowRect.width - 21, 6, 15, 15), "x"))
-                {
                     CloseWindow();
-                }
-            }
-            GUI.BeginGroup(new Rect(0, /*27*/0, WindowRect.width, WindowRect.height/* - 33*/));
+            GUI.BeginGroup(new Rect(0, /*27*/0, WindowRect.width, WindowRect.height /* - 33*/));
             DrawContent();
-            
+
             GUI.EndGroup();
             GUI.DragWindow(TitleBarRect);
         }
 
         public virtual void DrawContent()
         {
-
         }
     }
 }
