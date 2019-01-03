@@ -1,7 +1,7 @@
 ## Introduction
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![steam](https://img.shields.io/steam/downloads/1322956620.svg)](https://steamcommunity.com/sharedfiles/filedetails/?id=1322956620)
+[![](https://img.shields.io/steam/subscriptions/1322272853.svg)](https://steamcommunity.com/sharedfiles/filedetails/?id=1322272853)
 
 Allows the user to get around pesky limits.
 
