@@ -209,7 +209,7 @@ namespace CheatsMod.Windows
             {
                 var oldTimeScale = Time.timeScale;
                 Time.timeScale = parsedSpeed;
-                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeScale, parsedSpeed);
+                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeScale, parsedSpeed,false);
             }
 
             return true;

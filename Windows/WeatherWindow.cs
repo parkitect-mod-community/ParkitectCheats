@@ -50,14 +50,14 @@ namespace CheatsMod.Windows
             {
                 var oldTimeSpeed = Time.timeScale;
                 Time.timeScale = 1;
-                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 1);
+                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 1,false);
             }
 
             if (GUILayout.Button("Set speed 5x"))
             {
                 var oldTimeSpeed = Time.timeScale;
                 Time.timeScale = 5;
-                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 5);
+                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 5,false);
             }
 
             GUILayout.EndHorizontal();
@@ -66,14 +66,14 @@ namespace CheatsMod.Windows
             {
                 var oldTimeSpeed = Time.timeScale;
                 Time.timeScale = 10;
-                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 10);
+                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 10,false);
             }
 
             if (GUILayout.Button("Set speed 15x"))
             {
                 var oldTimeSpeed = Time.timeScale;
                 Time.timeScale = 15;
-                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 15);
+                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeSpeed, 15,false);
             }
 
             GUILayout.EndHorizontal();

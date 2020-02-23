@@ -34,7 +34,7 @@ namespace CheatsMod
         public Configuration()
         {
             _path = FilePaths.getFolderPath("cheats_mod.config");
-            ;
+
             settings = new CheatsMod.ModSettings();
         }
 
