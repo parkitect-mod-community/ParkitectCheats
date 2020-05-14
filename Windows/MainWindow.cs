@@ -71,6 +71,18 @@ namespace CheatsMod.Windows
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Open advanced window")) Controller.GetWindow<AdvancedWindow>().OpenWindow();
             if (GUILayout.Button("Open weather and time options")) Controller.GetWindow<WeatherWindow>().OpenWindow();
+            // if (GUILayout.Button("Recalculate current ratings")) {
+            //     GameController.Instance.park.parkInfo.triggerRecalculateCurrentRatings();
+            // }
+            // GUILayout.EndHorizontal();
+            // GUILayout.BeginHorizontal();
+            // if (GUILayout.Button("Open advanced window")) {
+            //     _controller.GetWindow<AdvancedWindow> ().OpenWindow();
+            // }
+            // if(GUILayout.Button("Open weather and time options"))
+            // {
+            //     _controller.GetWindow<WeatherWindow> ().OpenWindow();
+            // }
 
             if (GUILayout.Button("Open global toggles")) Controller.GetWindow<GlobalToggles>().OpenWindow();
             GUILayout.EndHorizontal();
