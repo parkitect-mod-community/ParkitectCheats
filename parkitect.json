@@ -1,0 +1,23 @@
+{
+    "name": "CheatMod",
+    "folder": "PMC.CheatMod",
+    "version": "v0.0.0",
+    "workshop": "1322272853",
+    "author": "Michael Pollind",
+    "description": null,
+    "preview": "./preview.png",
+    "assemblies": [
+      "System",
+      "System.Core",
+      "System.Data",
+        "UnityEngine.IMGUIModule",
+      "UnityEngine",
+      "UnityEngine.AssetBundleModule",
+      "UnityEngine.CoreModule",
+      "UnityEngine.InputLegacyModule",
+      "Parkitect",
+      "UnityEngine.PhysicsModule"
+    ],
+    "assets": [
+    ]
+  }
