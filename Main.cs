@@ -20,13 +20,33 @@ using Object = UnityEngine.Object;
 
 namespace CheatsMod
 {
-    public class Main : IMod, IModSettings
+    public class Main : AbstractMod, IModSettings
     {
         private GameObject _go;
         public string Identifier { get; set; }
         public static Configuration configuration { get; private set; }
 
-        public void onEnabled()
+        public override string getName()
+        {
+            return "Cheat Mod";
+        }
+
+        public override string getDescription()
+        {
+            return "Cheats for Parkitect.";
+        }
+
+        public override string getVersionNumber()
+        {
+            return "v1.0.0";
+        }
+
+        public override string getIdentifier()
+        {
+            return "CheatsMod";
+        }
+
+        public override void onEnabled()
         {
             if (configuration == null)
             {
@@ -36,26 +56,19 @@ namespace CheatsMod
             }
 
             if (configuration.settings.debugBuildMode)
+            {
                 ScriptableSingleton<DebugPreferences>.Instance.drawDebugUI = true;
-
+            }
 
             _go = new GameObject();
             var modController = _go.AddComponent<CheatModController>();
             modController.Load();
         }
 
-        public void onDisabled()
+        public override void onDisabled()
         {
             Object.Destroy(_go);
         }
-
-
-        public string Name => "Cheat Mod";
-
-        public string Description => "Cheats for Parkitect.";
-
-        string IMod.Identifier => "CheatsMod";
-
 
         #region Implementation of IModSettings
 
